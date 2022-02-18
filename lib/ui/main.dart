@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_space_x/core/manager/api_manager.dart';
-import 'package:flutter_space_x/core/model/launch.dart';
+import 'package:flutter_space_x/ui/component/favorites.dart';
+import 'package:flutter_space_x/ui/component/spacex_info.dart';
+
+import 'component/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'SpaceX',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Launches'),
     );
   }
 }
@@ -52,6 +54,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  int selectedIndex = 0;
+  final Widget _home = Home();
+  final Widget _favorites = Favorites();
+  final Widget _spacexInfo = SpacexInfo();
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -65,37 +72,49 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-
         title: Text(widget.title),
       ),
-      body: FutureBuilder(
-                future: ApiManager().getUpcomingLaunches(),
-                builder: (context,snapshot){
-                  if(snapshot.hasData){
-                    var launches = snapshot.data as List<Launch>;
-                    return ListView.builder(
-                        itemCount: launches.length,
-                        itemBuilder: (context, i) {
-                          return ListTile(
-                            title: Text(
-                              launches[i].name ?? ""
-                            ),
-                            subtitle: Text(
-                              launches[i].dateUtc ?? ""
-                            ),
-                          );
-                        }
-                    );
-                  }else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                }
-            )
-        );
+      body: getBody(),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: selectedIndex,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home"
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
+            label: "Favorite"
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "SpaceX"
+          )
+        ],
+        onTap: (int index) {
+          onTapHandler(index);
+        },
+      ),
+    );
+  }
+
+  Widget getBody() {
+    if (selectedIndex == 0) {
+      return _home;
+    } else if (selectedIndex == 1) {
+      return _favorites;
+    } else {
+      return _spacexInfo;
+    }
+  }
+
+  void onTapHandler(int index)  {
+    setState(() {
+      selectedIndex = index;
+    });
   }
 }
+

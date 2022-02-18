@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'links.dart';
+
 part 'launch.g.dart';
 
 @JsonSerializable(
@@ -11,6 +13,7 @@ class Launch{
   String? dateLocal;
   bool upcoming;
   String? success;
+  Links? links;
 
   Launch(
       {this.name,
@@ -18,7 +21,8 @@ class Launch{
       this.dateUnix,
       this.dateLocal,
       required this.upcoming,
-      this.success});
+      this.success,
+      this.links});
 
   factory Launch.fromJson(Map<String, dynamic> json) => _$LaunchFromJson(json);
 
