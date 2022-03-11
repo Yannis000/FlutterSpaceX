@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/manager/api_manager.dart';
 import '../../core/manager/launch_manager.dart';
 import '../../core/manager/locator.dart';
 import '../../core/model/launch.dart';
+import '../../core/viewModel/HomeViewModel.dart';
+import '../detailLaunch.dart';
 
-class Historique extends StatelessWidget {
+class History extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -24,6 +27,11 @@ class Historique extends StatelessWidget {
                           subtitle: Text(LaunchManager()
                               .convertDate(launchesReversed[i].dateUtc ?? "")
                           ),
+                          onTap: () {
+                            Provider.of<HomeViewModel>(context, listen: false)
+                                .launch = launches[i];
+                            showDetailPage(context);
+                          },
                         );
                       }
                     );
@@ -33,6 +41,16 @@ class Historique extends StatelessWidget {
                 );
               }
             })
+    );
+  }
+
+  showDetailPage(context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return detailLaunch();
+        },
+      ),
     );
   }
 }

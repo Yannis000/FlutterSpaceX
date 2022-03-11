@@ -17,8 +17,6 @@ class LaunchManager{
   }
 
   int getTimeDifference(int date){
-    print(date.toString());
-    print(DateTime.now().millisecondsSinceEpoch.toString());
     return date - DateTime.now().millisecondsSinceEpoch;
   }
 

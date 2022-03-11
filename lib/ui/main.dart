@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_space_x/ui/component/historique.dart';
+import 'package:flutter_space_x/ui/component/history.dart';
 import 'package:flutter_space_x/ui/component/spacex_info.dart';
+import 'package:provider/provider.dart';
 
 import '../core/manager/locator.dart';
+import '../core/viewModel/HomeViewModel.dart';
 import 'component/home.dart';
 
 void main() {
@@ -16,21 +18,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SpaceX',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (_) => HomeViewModel(),
+      child: Consumer<HomeViewModel>(
+        builder: (context, HomeViewModel model, child) => MaterialApp(
+          title: 'SpaceX',
+          theme: ThemeData(
+            // This is the theme of your application.
+            //
+            // Try running your application with "flutter run". You'll see the
+            // application has a blue toolbar. Then, without quitting the app, try
+            // changing the primarySwatch below to Colors.green and then invoke
+            // "hot reload" (press "r" in the console where you ran "flutter run",
+            // or simply save your changes to "hot reload" in a Flutter IDE).
+            // Notice that the counter didn't reset back to zero; the application
+            // is not restarted.
+            primarySwatch: Colors.blue,
+          ),
+          home: const MyHomePage(title: 'SpaceX'),
+        ),
       ),
-      home: const MyHomePage(title: 'Launches'),
     );
   }
 }
@@ -58,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int selectedIndex = 0;
   final Widget _home = Home();
-  final Widget _historique = Historique();
+  final Widget _history = History();
   final Widget _spacexInfo = SpacexInfo();
 
   void _incrementCounter() {
@@ -83,18 +90,10 @@ class _MyHomePageState extends State<MyHomePage> {
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
         items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home"
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.access_time),
-            label: "Historique"
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "SpaceX"
-          )
+              icon: Icon(Icons.access_time), label: "History"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "SpaceX")
         ],
         onTap: (int index) {
           onTapHandler(index);
@@ -107,16 +106,15 @@ class _MyHomePageState extends State<MyHomePage> {
     if (selectedIndex == 0) {
       return _home;
     } else if (selectedIndex == 1) {
-      return _historique;
+      return _history;
     } else {
       return _spacexInfo;
     }
   }
 
-  void onTapHandler(int index)  {
+  void onTapHandler(int index) {
     setState(() {
       selectedIndex = index;
     });
   }
 }
-

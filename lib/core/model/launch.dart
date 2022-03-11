@@ -12,7 +12,10 @@ class Launch{
   int? dateUnix;
   String? dateLocal;
   bool? success;
+  bool upcoming;
   Links? links;
+  String? details;
+  List<String>? crew;
 
   Launch(
       {this.name,
@@ -20,7 +23,10 @@ class Launch{
       this.dateUnix,
       this.dateLocal,
       this.success,
-      this.links});
+        required this.upcoming,
+      this.links,
+      this.details,
+      this.crew});
 
   factory Launch.fromJson(Map<String, dynamic> json) => _$LaunchFromJson(json);
 

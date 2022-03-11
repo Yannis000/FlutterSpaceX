@@ -35,7 +35,6 @@ class TimerManager{
   }
 
   DateTime convertDateTime(String date){
-    print(DateTime.parse(date).second);
     return DateTime.parse(date);
   }
 

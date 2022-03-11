@@ -23,25 +23,39 @@ class SpacexInfo extends StatelessWidget {
                         width: 250,
                         height: 150),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.person_outline),
-                        Text(companyInformation.founder)
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.calendar_today),
-                        Text(companyInformation.founded.toString())
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.people),
-                        Text(companyInformation.employees.toString())
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 32, 0),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.person_outline),
+                              Text(companyInformation.founder)
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 32, 0),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.calendar_today),
+                              Text(companyInformation.founded.toString())
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 32, 0),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.people),
+                              Text(companyInformation.employees.toString())
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                     Padding(
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.fromLTRB(16, 32, 16, 32),
                         child: Row(
                           children: [
                             Expanded(
