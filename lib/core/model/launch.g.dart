@@ -15,8 +15,7 @@ Launch _$LaunchFromJson(Map<String, dynamic> json) => $checkedCreate(
           dateUtc: $checkedConvert('date_utc', (v) => v as String?),
           dateUnix: $checkedConvert('date_unix', (v) => v as int?),
           dateLocal: $checkedConvert('date_local', (v) => v as String?),
-          upcoming: $checkedConvert('upcoming', (v) => v as bool),
-          success: $checkedConvert('success', (v) => v as String?),
+          success: $checkedConvert('success', (v) => v as bool?),
           links: $checkedConvert(
               'links',
               (v) =>
@@ -36,7 +35,6 @@ Map<String, dynamic> _$LaunchToJson(Launch instance) => <String, dynamic>{
       'date_utc': instance.dateUtc,
       'date_unix': instance.dateUnix,
       'date_local': instance.dateLocal,
-      'upcoming': instance.upcoming,
       'success': instance.success,
       'links': instance.links?.toJson(),
     };

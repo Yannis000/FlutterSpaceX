@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_space_x/core/manager/locator.dart';
-import 'package:provider/provider.dart';
 
 import '../../core/manager/api_manager.dart';
 import '../../core/manager/launch_manager.dart';
-import '../../core/manager/timer_manager.dart';
 import '../../core/model/launch.dart';
+import 'timer.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -28,14 +27,7 @@ class Home extends StatelessWidget {
                             children: [
                               Padding(
                                   padding: EdgeInsets.only(top: 36),
-                                  child: Text(
-                                    TimerManager().intToTimeLeft(TimerManager()
-                                        .convertDateTime(
-                                            launches[i].dateLocal ?? "")
-                                        .difference(DateTime.now())
-                                        .inSeconds),
-                                    style: TextStyle(fontSize: 38),
-                                  )),
+                                  child: Timer(launches[i].dateLocal ?? "")),
                               Row(children: [
                                 Container(
                                     height: 80,
@@ -65,7 +57,6 @@ class Home extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               }
-            })
-    );
+            }));
   }
 }

@@ -62,7 +62,7 @@ class SpacexInfo extends StatelessWidget {
                             if (snapshot.hasData) {
                               var crew = snapshot.data as List<Crew>;
                               return SizedBox(
-                                height: 200,
+                                height: 230,
                                 child: Column(
                                   children: [
                                     Expanded(
@@ -80,8 +80,8 @@ class SpacexInfo extends StatelessWidget {
                                                   ClipOval(
                                                     child: Image.network(
                                                       crew[i].image ?? "",
-                                                      width: 150,
-                                                      height: 150,
+                                                      width: 180,
+                                                      height: 180,
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),

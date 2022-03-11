@@ -11,7 +11,6 @@ class TimerManager{
 
     d = value ~/ 86400;
 
-
     value = (value - d * 86400);
     h = value ~/ 3600;
 
@@ -30,7 +29,7 @@ class TimerManager{
     String secondsLeft =
     s.toString().length < 2 ? "0" + s.toString() : s.toString();
 
-    String result = "$dayLeft : $hourLeft : $minuteLeft : $secondsLeft";
+    String result = "${dayLeft}j ${hourLeft}h ${minuteLeft}m ${secondsLeft}s";
 
     return result;
   }

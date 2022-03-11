@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_space_x/ui/component/favorites.dart';
+import 'package:flutter_space_x/ui/component/historique.dart';
 import 'package:flutter_space_x/ui/component/spacex_info.dart';
 
 import '../core/manager/locator.dart';
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int selectedIndex = 0;
   final Widget _home = Home();
-  final Widget _favorites = Favorites();
+  final Widget _historique = Historique();
   final Widget _spacexInfo = SpacexInfo();
 
   void _incrementCounter() {
@@ -88,8 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
             label: "Home"
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
-            label: "Favorite"
+            icon: Icon(Icons.access_time),
+            label: "Historique"
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (selectedIndex == 0) {
       return _home;
     } else if (selectedIndex == 1) {
-      return _favorites;
+      return _historique;
     } else {
       return _spacexInfo;
     }

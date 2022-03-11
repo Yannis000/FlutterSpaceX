@@ -9,7 +9,8 @@ import '../model/crew.dart';
 
 @singleton
 class ApiManager{
-  List<Launch>? launches;
+  List<Launch>? upcomingLaunches;
+  List<Launch>? pastlaunches;
   List<Crew>? crewMembers;
   Company? companyInformation;
 
@@ -19,6 +20,7 @@ class ApiManager{
     dio.options.baseUrl = "https://api.spacexdata.com/v4";
   }
 
+  ///LAUNCHES
   List<Launch>? parseLaunches(List<dynamic>? json){
     if(json == null){
       return null;
@@ -29,14 +31,25 @@ class ApiManager{
 
   Future<List<Launch>?> getUpcomingLaunches() async{
     try{
-      launches = await dio
+      upcomingLaunches = await dio
           .get("/launches/upcoming").then((response) => parseLaunches(response.data));
-      return launches;
+      return upcomingLaunches;
     }catch (e){
       print("error : $e");
     }
   }
 
+  Future<List<Launch>?> getPastsLaunches() async{
+    try{
+      pastlaunches = await dio
+          .get("/launches/past").then((response) => parseLaunches(response.data));
+      return pastlaunches;
+    }catch (e){
+      print("error : $e");
+    }
+  }
+
+  ///CREW MEMBERS
   List<Crew>? parseCrewMembers(List<dynamic>? json){
     if(json == null){
       return null;
@@ -55,6 +68,7 @@ class ApiManager{
     }
   }
 
+  ///SPACEX INFORMATIONS
   Company? parseCompanyInformation(Map<String, dynamic>? json){
     if(json == null){
       return null;

@@ -11,8 +11,7 @@ class Launch{
   String? dateUtc;
   int? dateUnix;
   String? dateLocal;
-  bool upcoming;
-  String? success;
+  bool? success;
   Links? links;
 
   Launch(
@@ -20,7 +19,6 @@ class Launch{
       this.dateUtc,
       this.dateUnix,
       this.dateLocal,
-      required this.upcoming,
       this.success,
       this.links});
 
