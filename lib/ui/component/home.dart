@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_space_x/core/manager/locator.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/manager/api_manager.dart';
 import '../../core/manager/launch_manager.dart';
@@ -11,7 +13,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: FutureBuilder(
-            future: ApiManager().getUpcomingLaunches(),
+            future: locator<ApiManager>().getUpcomingLaunches(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 var launches = snapshot.data as List<Launch>;

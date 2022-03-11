@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_space_x/ui/component/favorites.dart';
 import 'package:flutter_space_x/ui/component/spacex_info.dart';
 
+import '../core/manager/locator.dart';
 import 'component/home.dart';
 
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 
