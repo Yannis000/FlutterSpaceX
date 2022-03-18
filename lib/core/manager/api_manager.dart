@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter_space_x/core/model/launch.dart';
+import 'package:flutter_space_x/core/model/launchpad.dart';
 import 'package:injectable/injectable.dart';
 
 import '../model/company.dart';
@@ -13,6 +14,7 @@ class ApiManager{
   List<Launch>? pastlaunches;
   List<Crew>? crewMembers;
   Company? companyInformation;
+  List<Launchpad>? launchpads;
 
   var dio = Dio();
 
@@ -81,6 +83,26 @@ class ApiManager{
       companyInformation = await dio
           .get("/company").then((response) => parseCompanyInformation(response.data));
       return companyInformation;
+    }catch (e){
+      print("error : $e");
+    }
+  }
+
+
+  ///LAUNCHPADS
+  List<Launchpad>? parseLaunchpad(List<dynamic>? json){
+    if(json == null){
+      return null;
+    }
+    List<dynamic> jsonArray = json;
+    return jsonArray.map((json) => Launchpad.fromJson(json)).toList();
+  }
+
+  Future<List<Launchpad>?> getAllLaunchpad() async{
+    try{
+      launchpads = await dio
+          .get("/launchpads").then((response) => parseLaunchpad(response.data));
+      return launchpads;
     }catch (e){
       print("error : $e");
     }

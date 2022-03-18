@@ -20,28 +20,57 @@ class History extends StatelessWidget {
                 var launches = snapshot.data as List<Launch>;
                 var launchesReversed = launches.reversed.toList();
                 return ListView.builder(
-                    itemCount: launches.length,
+                    itemCount: launchesReversed.length,
                     itemBuilder: (context, i) {
-                        return ListTile(
-                          title: Text(launchesReversed[i].name ?? ""),
-                          subtitle: Text(LaunchManager()
-                              .convertDate(launchesReversed[i].dateUtc ?? "")
+                      return GestureDetector(
+                        onTap: () {
+                          Provider.of<HomeViewModel>(context, listen: false)
+                              .launch = launchesReversed[i];
+                          showDetailPage(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 12),
+                          child: Row(
+                            children: [
+                              Hero(
+                                tag: launchesReversed[i].name ?? "",
+                                child: Image.network(
+                                  launchesReversed[i].links?.patch?.large ??
+                                      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/SpaceX_Crew-1_logo.svg/1200px-SpaceX_Crew-1_logo.svg.png",
+                                  width: 100,
+                                  height: 100,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child:
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        launchesReversed[i].name ?? "",
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(LaunchManager().convertDate(
+                                          launchesReversed[i].dateUtc ?? ""))
+                                    ],
+                                  ),
+                                )
+                              )
+                            ],
                           ),
-                          onTap: () {
-                            Provider.of<HomeViewModel>(context, listen: false)
-                                .launch = launches[i];
-                            showDetailPage(context);
-                          },
-                        );
-                      }
-                    );
+                        ),
+                      );
+                    });
               } else {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
-            })
-    );
+            }));
   }
 
   showDetailPage(context) {

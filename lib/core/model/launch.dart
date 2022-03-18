@@ -16,6 +16,7 @@ class Launch{
   Links? links;
   String? details;
   List<String>? crew;
+  int flightNumber;
 
   Launch(
       {this.name,
@@ -26,7 +27,8 @@ class Launch{
         required this.upcoming,
       this.links,
       this.details,
-      this.crew});
+      this.crew,
+      required this.flightNumber});
 
   factory Launch.fromJson(Map<String, dynamic> json) => _$LaunchFromJson(json);
 

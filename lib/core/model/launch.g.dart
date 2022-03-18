@@ -24,13 +24,15 @@ Launch _$LaunchFromJson(Map<String, dynamic> json) => $checkedCreate(
           details: $checkedConvert('details', (v) => v as String?),
           crew: $checkedConvert('crew',
               (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
+          flightNumber: $checkedConvert('flight_number', (v) => v as int),
         );
         return val;
       },
       fieldKeyMap: const {
         'dateUtc': 'date_utc',
         'dateUnix': 'date_unix',
-        'dateLocal': 'date_local'
+        'dateLocal': 'date_local',
+        'flightNumber': 'flight_number'
       },
     );
 
@@ -44,4 +46,5 @@ Map<String, dynamic> _$LaunchToJson(Launch instance) => <String, dynamic>{
       'links': instance.links?.toJson(),
       'details': instance.details,
       'crew': instance.crew,
+      'flight_number': instance.flightNumber,
     };

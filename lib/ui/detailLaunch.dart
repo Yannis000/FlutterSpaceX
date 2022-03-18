@@ -18,7 +18,7 @@ class detailLaunch extends StatelessWidget {
       ),
       body: Column(children: [
         Hero(
-            tag: "badge",
+            tag: Provider.of<HomeViewModel>(context, listen: false).launch?.name ?? "",
             child: Image.network(Provider.of<HomeViewModel>(context,
                         listen: false)
                     .launch
